@@ -26,7 +26,7 @@ export function DashboardLayout({
           </div>
 
           {/* Conteúdo com scroll */}
-          <div className="flex-1 overflow-y-auto px-16 py-8 space-y-4">
+          <div className="flex-1 overflow-y-scroll px-16 py-8 space-y-4">
             {children}
           </div>
         </div>

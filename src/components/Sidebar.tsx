@@ -15,14 +15,12 @@ const buttons = [
   {
     icon: <DollarSign />,
     title: "Gestão de Requisição",
+    link: "/operacional/gestao-de-requisicao",
   },
   {
     icon: <DollarSign />,
-    title: "Página 2",
-  },
-  {
-    icon: <DollarSign />,
-    title: "Página 3",
+    title: "Requisições Finalizadas",
+    link: "/operacional/requisicoes-finalizadas",
   },
 ];
 
@@ -40,7 +38,7 @@ export function CustomSidebar({ number }: { number: number }) {
               {buttons.map((item, i) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton isActive={i === number} asChild>
-                    <a href="#">
+                    <a href={item.link}>
                       {item.icon}
                       <span className="text-base">{item.title}</span>
                     </a>
