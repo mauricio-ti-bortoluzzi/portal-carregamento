@@ -1,25 +1,27 @@
 import { Button } from "@/components/ui/button";
-import { FilterDialog } from "./FilterDialog";
+import { FilterDialog } from "@/components/FilterDialog";
 import { FormFieldsProps } from "@/components/Form";
-import { filterSchema } from "./schema";
+import { FilterProps, filterSchema } from "./schema";
 
-export default function HeaderActions() {
+type HeaderActionsProps = { handleSubmit: (arg0: FilterProps) => void };
+
+export default function HeaderActions({ handleSubmit }: HeaderActionsProps) {
   return (
     <div className="flex justify-between items-end mb-4">
       <h1 className="text-lg font-semibold">Tabela</h1>
       <div className="flex gap-2">
-        <FilterButton />
+        <FilterButton handleSubmit={handleSubmit} />
         <Button>Gerar Ordem</Button>
       </div>
     </div>
   );
 }
 
-function FilterButton() {
+function FilterButton({ handleSubmit }: HeaderActionsProps) {
   return (
     <FilterDialog
       fields={getFormFields()}
-      handleSubmit={() => {}}
+      handleSubmit={handleSubmit}
       schema={filterSchema}
     >
       <Button variant="secondary">Filtrar</Button>

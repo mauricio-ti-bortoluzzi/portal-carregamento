@@ -1,5 +1,5 @@
 import { TableCell, TableRow } from "@/components/ui/table";
-import { SubtableRowSchema, SubtableSchema } from "../type";
+import { SubtableRowProps, SubtableProps } from "../type";
 
 type SelectionState = {
   [rowId: string]: {
@@ -16,14 +16,14 @@ export default function ExpandableTableSubtable({
   selection,
   toggleSubRow,
 }: {
-  subtable: SubtableSchema;
+  subtable: SubtableProps;
   select?: boolean;
   rowId: string;
   selection?: SelectionState[string];
-  toggleSubRow: (
+  toggleSubRow?: (
     rowId: string,
     subRowId: string,
-    subtableRows: SubtableRowSchema[]
+    subtableRows: SubtableRowProps[]
   ) => void;
 }) {
   return (
@@ -58,8 +58,11 @@ export default function ExpandableTableSubtable({
                 type="checkbox"
                 className="w-4 h-4"
                 checked={selection?.subRows[row.cells[0].value] ?? false}
-                onChange={() =>
-                  toggleSubRow(rowId, row.cells[0].value, subtable.rows)
+                onChange={
+                  toggleSubRow
+                    ? () =>
+                        toggleSubRow(rowId, row.cells[0].value, subtable.rows)
+                    : () => {}
                 }
               />
             </TableCell>

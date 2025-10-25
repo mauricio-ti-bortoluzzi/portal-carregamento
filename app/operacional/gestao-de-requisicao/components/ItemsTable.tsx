@@ -1,14 +1,29 @@
 import invoices, { DataType } from "../data";
 import ExpandableTable from "@/components/ExpandableTable";
-import { TableSchema } from "@/components/ExpandableTable/type";
+import { SelectionState, TableProps } from "@/components/ExpandableTable/type";
+import HeaderActions from "./HeaderActions";
+import { useState } from "react";
+import { FilterProps } from "./schema";
 
 export default function ItemsTable() {
+  const [selection, setSelection] = useState<SelectionState>({});
+
+  function handleSubmit(data: FilterProps) {}
+
   return (
-    <ExpandableTable data={formatInvoicesToTable(invoices)} select={true} />
+    <>
+      <HeaderActions handleSubmit={handleSubmit} />
+      <ExpandableTable
+        data={formatInvoicesToTable(invoices)}
+        select={true}
+        selection={selection}
+        setSelection={setSelection}
+      />
+    </>
   );
 }
 
-function formatInvoicesToTable(invoices: DataType[]): TableSchema {
+function formatInvoicesToTable(invoices: DataType[]): TableProps {
   const headers = [
     {
       label: "Código",

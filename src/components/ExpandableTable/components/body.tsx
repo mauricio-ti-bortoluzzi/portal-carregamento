@@ -1,95 +1,90 @@
-import React, { useState } from "react";
-import { RowSchema, SubtableRowSchema } from "../type";
+import React, { Dispatch, SetStateAction, useState } from "react";
+import { RowProps, SelectionState, SubtableRowProps } from "../type";
 import { TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
 import ExpandableTableSubtable from "./subtable";
 
-type SelectionState = {
-  [rowId: string]: {
-    checked: boolean;
-    partial: boolean;
-    subRows: { [subRowId: string]: boolean };
-  };
-};
-
 export default function ExpandableTableBody({
   rows,
   select = false,
+  selection,
+  setSelection,
 }: {
-  rows: RowSchema[];
+  rows: RowProps[];
   select: boolean;
+  selection?: SelectionState;
+  setSelection?: Dispatch<SetStateAction<SelectionState>>;
 }) {
   const [openRow, setOpenRow] = useState<string | null>(null);
-  const [selection, setSelection] = useState<SelectionState>({});
 
-  console.log(JSON.stringify(selection, null, 2));
+  const toggleRow =
+    selection &&
+    setSelection &&
+    ((rowId: string, subtableRows?: SubtableRowProps[]) => {
+      setSelection((prev) => {
+        const prevRow = prev[rowId] || {
+          checked: false,
+          partial: false,
+          subRows: {},
+        };
+        const newChecked = !prevRow.checked;
+
+        // Atualiza todos subRows se tiver subtable
+        const newSubRows: { [key: string]: boolean } = {};
+        if (subtableRows) {
+          subtableRows.forEach((subRow) => {
+            newSubRows[subRow.cells[0].value] = newChecked;
+          });
+        }
+
+        return {
+          ...prev,
+          [rowId]: {
+            checked: newChecked,
+            partial: false,
+            subRows: newSubRows,
+          },
+        };
+      });
+    });
+
+  const toggleSubRow =
+    selection &&
+    setSelection &&
+    ((rowId: string, subRowId: string, subtableRows?: SubtableRowProps[]) => {
+      setSelection((prev) => {
+        const prevRow = prev[rowId] || {
+          checked: false,
+          partial: false,
+          subRows: {},
+        };
+        const newSubRows = {
+          ...prevRow.subRows,
+          [subRowId]: !prevRow.subRows[subRowId],
+        };
+
+        const allSelected =
+          subtableRows?.every((subRow) => newSubRows[subRow.cells[0].value]) ??
+          false;
+        const noneSelected =
+          subtableRows?.every((subRow) => !newSubRows[subRow.cells[0].value]) ??
+          true;
+
+        return {
+          ...prev,
+          [rowId]: {
+            checked: allSelected,
+            partial: !allSelected && !noneSelected,
+            subRows: newSubRows,
+          },
+        };
+      });
+    });
 
   function toggleOpenRow(code: string) {
     setOpenRow((prev) => (prev === code ? null : code));
   }
-
-  const toggleRow = (rowId: string, subtableRows?: SubtableRowSchema[]) => {
-    setSelection((prev) => {
-      const prevRow = prev[rowId] || {
-        checked: false,
-        partial: false,
-        subRows: {},
-      };
-      const newChecked = !prevRow.checked;
-
-      // Atualiza todos subRows se tiver subtable
-      const newSubRows: { [key: string]: boolean } = {};
-      if (subtableRows) {
-        subtableRows.forEach((subRow) => {
-          newSubRows[subRow.cells[0].value] = newChecked;
-        });
-      }
-
-      return {
-        ...prev,
-        [rowId]: {
-          checked: newChecked,
-          partial: false,
-          subRows: newSubRows,
-        },
-      };
-    });
-  };
-
-  const toggleSubRow = (
-    rowId: string,
-    subRowId: string,
-    subtableRows?: SubtableRowSchema[]
-  ) => {
-    setSelection((prev) => {
-      const prevRow = prev[rowId] || {
-        checked: false,
-        partial: false,
-        subRows: {},
-      };
-      const newSubRows = {
-        ...prevRow.subRows,
-        [subRowId]: !prevRow.subRows[subRowId],
-      };
-
-      const allSelected =
-        subtableRows?.every((subRow) => newSubRows[subRow.cells[0].value]) ??
-        false;
-      const noneSelected =
-        subtableRows?.every((subRow) => !newSubRows[subRow.cells[0].value]) ??
-        true;
-
-      return {
-        ...prev,
-        [rowId]: {
-          checked: allSelected,
-          partial: !allSelected && !noneSelected,
-          subRows: newSubRows,
-        },
-      };
-    });
-  };
 
   return (
     <TableBody>
@@ -103,8 +98,12 @@ export default function ExpandableTableBody({
               select={select}
               haveSubtable={Boolean(row.subtable)}
               toggleRow={toggleRow}
-              checkedRow={selection[row.cells[0].value]?.checked}
-              partialRow={selection[row.cells[0].value]?.partial}
+              checkedRow={
+                selection ? selection[row.cells[0].value]?.checked : false
+              }
+              partialRow={
+                selection ? selection[row.cells[0].value]?.partial : false
+              }
               isOpenRow={isOpenRow}
               toggleOpenRow={toggleOpenRow}
             />
@@ -113,7 +112,7 @@ export default function ExpandableTableBody({
                 subtable={row.subtable}
                 select={select}
                 rowId={String(row.cells[0].value)}
-                selection={selection[row.cells[0].value]}
+                selection={selection && selection[row.cells[0].value]}
                 toggleSubRow={toggleSubRow}
               />
             )}
@@ -134,10 +133,10 @@ function MainRow({
   isOpenRow,
   toggleOpenRow,
 }: {
-  row: RowSchema;
+  row: RowProps;
   select: boolean;
   haveSubtable: boolean;
-  toggleRow: (rowId: string, subtableRows?: SubtableRowSchema[]) => void;
+  toggleRow?: (rowId: string, subtableRows?: SubtableRowProps[]) => void;
   checkedRow: boolean;
   partialRow: boolean;
   isOpenRow: boolean;
@@ -152,8 +151,10 @@ function MainRow({
       {select && (
         <TableCell
           className="text-center"
-          onClick={() =>
-            toggleRow(String(row.cells[0].value), row.subtable?.rows)
+          onClick={
+            toggleRow
+              ? () => toggleRow(String(row.cells[0].value), row.subtable?.rows)
+              : () => {}
           }
         >
           <input

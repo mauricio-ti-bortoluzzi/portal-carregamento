@@ -1,29 +1,41 @@
-export type SubtableRowSchema = {
+import { Dispatch, SetStateAction } from "react";
+
+export type SubtableRowProps = {
   cells: { value: any; colSize: number }[];
 };
 
-export type SubtableSchema = {
+export type SubtableProps = {
   headers: { label: string; colSize: number }[];
-  rows: SubtableRowSchema[];
+  rows: SubtableRowProps[];
 };
 
-export type RowSchema = {
+export type RowProps = {
   cells: { value: string | number; colSize: number; align: "start" | "end" }[];
-  subtable?: SubtableSchema;
+  subtable?: SubtableProps;
 };
 
-export type HeaderSchema = {
+export type HeaderProps = {
   label: string;
   colSize: number;
   align: "start" | "end";
 };
 
-export type TableSchema = {
-  headers: HeaderSchema[];
-  rows: RowSchema[];
+export type TableProps = {
+  headers: HeaderProps[];
+  rows: RowProps[];
 };
 
 export type ExpandableTableProps = {
-  data: TableSchema;
+  data: TableProps;
   select?: boolean;
+  selection?: SelectionState;
+  setSelection?: Dispatch<SetStateAction<SelectionState>>;
+};
+
+export type SelectionState = {
+  [rowId: string]: {
+    checked: boolean;
+    partial: boolean;
+    subRows: { [subRowId: string]: boolean };
+  };
 };

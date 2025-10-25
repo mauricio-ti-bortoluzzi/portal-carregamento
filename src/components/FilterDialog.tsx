@@ -13,19 +13,19 @@ import {
 import { ReactNode } from "react";
 import { ZodObject } from "zod";
 
-type FilterDialogProps = {
+type FilterDialogProps<T> = {
   children: ReactNode;
   fields: FormFieldsProps;
   schema: ZodObject;
-  handleSubmit: () => void;
+  handleSubmit: (arg0: T) => void;
 };
 
-export function FilterDialog({
+export function FilterDialog<T>({
   children,
   fields,
   schema,
   handleSubmit,
-}: FilterDialogProps) {
+}: FilterDialogProps<T>) {
   return (
     <Dialog>
       <DialogTrigger asChild children={children} />
