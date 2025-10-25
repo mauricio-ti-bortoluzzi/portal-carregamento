@@ -3,7 +3,7 @@
 import { DashboardLayout } from "@/components/Layout";
 import HeaderActions from "../components/HeaderActions";
 import ExpandableTable from "@/components/ExpandableTable";
-import invoices, { DataType } from "./data";
+import data, { RequestType } from "./data";
 import { useState } from "react";
 import { SelectionState, TableProps } from "@/components/ExpandableTable/type";
 import { FilterProps } from "./schema";
@@ -14,10 +14,10 @@ export default function RequisitionPage() {
   function handleSubmit(data: FilterProps) {}
 
   return (
-    <DashboardLayout number={0} title="Gestão de Requisição">
+    <DashboardLayout number={1} title="Gestão de Requisição">
       <HeaderActions handleSubmit={handleSubmit} />
       <ExpandableTable
-        data={formatInvoicesToTable(invoices)}
+        data={formatInvoicesToTable(data)}
         select={true}
         selection={selection}
         setSelection={setSelection}
@@ -26,10 +26,15 @@ export default function RequisitionPage() {
   );
 }
 
-function formatInvoicesToTable(invoices: DataType[]): TableProps {
+function formatInvoicesToTable(data: RequestType[]): TableProps {
   const headers = [
     {
-      label: "Código",
+      label: "Requisição",
+      colSize: 1,
+      align: "start" as "start" | "end",
+    },
+    {
+      label: "Código do Item",
       colSize: 1,
       align: "start" as "start" | "end",
     },
@@ -39,70 +44,69 @@ function formatInvoicesToTable(invoices: DataType[]): TableProps {
       align: "start" as "start" | "end",
     },
     {
-      label: "Saldo",
-      colSize: 2,
+      label: "Volume",
+      colSize: 1,
+      align: "start" as "start" | "end",
+    },
+    {
+      label: "Status",
+      colSize: 1,
       align: "end" as "start" | "end",
     },
   ];
 
   const subheaders = [
     {
-      label: "Nº pedido",
-      colSize: 1,
-    },
-    {
-      label: "Cliente",
+      label: "Lote",
       colSize: 1,
     },
     {
       label: "Volume",
-      colSize: 1,
-    },
-    {
-      label: "Empresa",
-      colSize: 1,
+      colSize: 4,
     },
   ];
 
   return {
     headers,
-    rows: invoices.map((invoice) => ({
+    rows: data.map((request) => ({
       cells: [
         {
-          value: invoice.itemCode,
+          value: request.request,
           colSize: headers[0].colSize,
           align: headers[0].align as "start" | "end",
         },
         {
-          value: invoice.item,
+          value: request.itemCode,
           colSize: headers[1].colSize,
           align: headers[1].align as "start" | "end",
         },
         {
-          value: invoice.balance.toFixed(2),
+          value: request.item,
           colSize: headers[2].colSize,
           align: headers[2].align as "start" | "end",
+        },
+        {
+          value: request.volume,
+          colSize: headers[3].colSize,
+          align: headers[3].align as "start" | "end",
+        },
+        {
+          value: request.status,
+          colSize: headers[4].colSize,
+          align: headers[4].align as "start" | "end",
         },
       ],
       subtable: {
         headers: subheaders,
-        rows: invoice.orders.map((order) => ({
+        rows: request.operations.map((operation) => ({
           cells: [
             {
-              value: order.code,
+              value: operation.code,
               colSize: subheaders[0].colSize,
             },
             {
-              value: order.client,
+              value: operation.volume,
               colSize: subheaders[1].colSize,
-            },
-            {
-              value: order.volume.toFixed(2),
-              colSize: subheaders[2].colSize,
-            },
-            {
-              value: order.companyName,
-              colSize: subheaders[3].colSize,
             },
           ],
         })),

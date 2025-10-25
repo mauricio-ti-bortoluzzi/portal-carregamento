@@ -4,6 +4,7 @@ import { TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
 import ExpandableTableSubtable from "./subtable";
+import { is } from "zod/v4/locales";
 
 export default function ExpandableTableBody({
   rows,
@@ -89,7 +90,7 @@ export default function ExpandableTableBody({
   return (
     <TableBody>
       {rows.map((row) => {
-        const isOpenRow = openRow === row.cells[0].value;
+        const isOpenRow = openRow === String(row.cells[0].value);
 
         return (
           <React.Fragment key={row.cells[0].value}>

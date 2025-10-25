@@ -1,11 +1,11 @@
 import { TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { HeaderSchema } from "../type";
+import { HeaderProps } from "../type";
 
 export default function ExpandableTableHeader({
   headers,
   select,
 }: {
-  headers: HeaderSchema[];
+  headers: HeaderProps[];
   select: boolean;
 }) {
   return (

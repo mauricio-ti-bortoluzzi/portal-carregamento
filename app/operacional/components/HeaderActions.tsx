@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { FilterDialog } from "@/components/FilterDialog";
 import { FormFieldsProps } from "@/components/Form";
-import { FilterProps, filterSchema } from "./schema";
+import { FilterProps, filterSchema } from "../gestao-de-requisicao/schema";
 
 type HeaderActionsProps = { handleSubmit: (arg0: FilterProps) => void };
 
