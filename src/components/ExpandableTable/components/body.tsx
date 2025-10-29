@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { ReactNode, useState } from "react";
 import { RowProps, SelectionState } from "../type";
 import { TableBody } from "@/components/ui/table";
 import MainRow from "./main-row";
@@ -10,6 +10,7 @@ interface ExpandableTableBodyProps {
   select?: boolean;
   selection?: SelectionState;
   setSelection?: React.Dispatch<React.SetStateAction<SelectionState>>;
+  options?: ReactNode;
 }
 
 export default function ExpandableTableBody({
@@ -17,6 +18,7 @@ export default function ExpandableTableBody({
   select = false,
   selection,
   setSelection,
+  options,
 }: ExpandableTableBodyProps) {
   const [openRow, setOpenRow] = useState<string | null>(null);
   const { toggleRowSelection, toggleSubRowSelection } = useSelection(
@@ -51,6 +53,7 @@ export default function ExpandableTableBody({
                 isRowOpen: isRowOpen,
                 toggleRowOpen: handleToggleRow,
               }}
+              options={options}
             />
             {row.subtable && isRowOpen && (
               <ExpandableTableSubtable

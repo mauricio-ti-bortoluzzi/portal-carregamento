@@ -1,6 +1,5 @@
 import { TableCell, TableRow } from "@/components/ui/table";
 import { SubtableRowProps } from "../../type";
-import { boolean } from "zod";
 
 interface SubtableRowComponentProps {
   row: SubtableRowProps;

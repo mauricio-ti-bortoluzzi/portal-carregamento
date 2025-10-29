@@ -7,11 +7,14 @@ import data, { RequestType } from "./data";
 import { useState } from "react";
 import { SelectionState, TableProps } from "@/components/ExpandableTable/type";
 import { FilterProps } from "./schema";
+import { Button } from "@/components/ui/button";
 
 export default function RequisitionPage() {
   const [selection, setSelection] = useState<SelectionState>({});
 
-  function handleSubmit(data: FilterProps) {}
+  function handleSubmit(data: FilterProps) {
+    console.log(data);
+  }
 
   return (
     <DashboardLayout number={1} title="Gestão de Requisição">
@@ -21,6 +24,7 @@ export default function RequisitionPage() {
         select={true}
         selection={selection}
         setSelection={setSelection}
+        options={<Options />}
       />
     </DashboardLayout>
   );
@@ -57,7 +61,7 @@ function formatInvoicesToTable(data: RequestType[]): TableProps {
 
   const subheaders = [
     {
-      label: "Lote",
+      label: "OP",
       colSize: 1,
     },
     {
@@ -113,4 +117,17 @@ function formatInvoicesToTable(data: RequestType[]): TableProps {
       },
     })),
   };
+}
+
+function Options() {
+  return (
+    <>
+      <Button>
+        <span>Adicionar OP</span>
+      </Button>
+      <Button>
+        <span>Adicionar OP</span>
+      </Button>
+    </>
+  );
 }

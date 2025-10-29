@@ -89,7 +89,9 @@ export function CustomSelect({
   return (
     <>
       <div className={containerClassname}>
-        <Label className="w-1/2" htmlFor={name} children={label} />
+        <Label className="w-1/2" htmlFor={name}>
+          {label}
+        </Label>
         <Controller
           control={control}
           name={name}

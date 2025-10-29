@@ -11,7 +11,9 @@ import { FilterProps } from "./schema";
 export default function RequisitionPage() {
   const [selection, setSelection] = useState<SelectionState>({});
 
-  function handleSubmit(data: FilterProps) {}
+  function handleSubmit(data: FilterProps) {
+    console.log(data);
+  }
 
   return (
     <DashboardLayout number={0} title="Gestão de Requisição">

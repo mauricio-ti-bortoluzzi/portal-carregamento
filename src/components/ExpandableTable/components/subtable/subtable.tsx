@@ -37,7 +37,7 @@ export function Subtable({
             row={row}
             selection={{
               toggleRowSelection: () =>
-                toggleSubRow(rowId, subRowId, data.rows),
+                toggleSubRow(rowId, String(subRowId), data.rows),
               checked: selection?.subRows[subRowId] ?? false,
             }}
           />

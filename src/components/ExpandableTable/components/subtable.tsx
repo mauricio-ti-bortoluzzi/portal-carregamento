@@ -61,7 +61,11 @@ export default function ExpandableTableSubtable({
                 onChange={
                   toggleSubRow
                     ? () =>
-                        toggleSubRow(rowId, row.cells[0].value, subtable.rows)
+                        toggleSubRow(
+                          rowId,
+                          String(row.cells[0].value),
+                          subtable.rows
+                        )
                     : () => {}
                 }
               />

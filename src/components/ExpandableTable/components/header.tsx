@@ -15,8 +15,9 @@ export default function ExpandableTableHeader({
             className={`text-${header.align}`}
             key={header.label}
             colSpan={header.colSize}
-            children={header.label}
-          />
+          >
+            {header.label}
+          </TableHead>
         ))}
       </TableRow>
     </TableHeader>

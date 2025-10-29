@@ -13,26 +13,30 @@ import {
 import { ReactNode } from "react";
 import { ZodObject } from "zod";
 
-type FilterDialogProps<T> = {
+type FilterDialogProps = {
   children: ReactNode;
   fields: FormFieldsProps;
   schema: ZodObject;
-  handleSubmit: (arg0: T) => void;
+  handleSubmit: (data: Record<string, unknown>) => void;
 };
 
-export function FilterDialog<T>({
+export function FilterDialog({
   children,
   fields,
   schema,
   handleSubmit,
-}: FilterDialogProps<T>) {
+}: FilterDialogProps) {
   return (
     <Dialog>
-      <DialogTrigger asChild children={children} />
+      <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle children="Filtro de Requisições" />
-          <DialogDescription children="Selecione os campos para filtrar" />
+          <DialogTitle asChild>
+            <span>Filtro de Requisições</span>
+          </DialogTitle>
+          <DialogDescription asChild>
+            <span>Selecione os campos para filtrar</span>
+          </DialogDescription>
         </DialogHeader>
         <CustomForm
           schema={schema}

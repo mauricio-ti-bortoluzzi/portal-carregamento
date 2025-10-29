@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FormHTMLAttributes, ReactNode } from "react";
+import { FormHTMLAttributes } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { ZodObject } from "zod";
 import {
@@ -19,6 +19,7 @@ export type FormFieldsProps = (FormInputFieldProps | FormSelectFieldProps)[];
 
 type CustomFormProps = FormHTMLAttributes<HTMLFormElement> & {
   schema: ZodObject;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   handleSubmit: (data: any) => void;
   fields: FormFieldsProps;
 };
