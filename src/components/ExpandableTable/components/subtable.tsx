@@ -3,9 +3,9 @@ import { SubtableRowProps, SubtableProps } from "../type";
 
 type SelectionState = {
   [rowId: string]: {
-    checked: boolean; // linha principal totalmente selecionada
-    partial: boolean; // linha principal parcialmente selecionada
-    subRows: { [subRowId: string]: boolean }; // sublinhas selecionadas
+    checked: boolean;
+    partial: boolean;
+    subRows: { [subRowId: string]: boolean };
   };
 };
 

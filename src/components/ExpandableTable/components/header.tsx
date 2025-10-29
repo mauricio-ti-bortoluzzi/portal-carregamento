@@ -3,17 +3,13 @@ import { HeaderProps } from "../type";
 
 export default function ExpandableTableHeader({
   headers,
-  select,
 }: {
   headers: HeaderProps[];
-  select: boolean;
 }) {
   return (
     <TableHeader>
       <TableRow>
-        {select && (
-          <TableHead className="w-[80px] text-center">Selecionar</TableHead>
-        )}
+        <TableHead className="w-[80px] text-center">Selecionar</TableHead>
         {headers.map((header) => (
           <TableHead
             className={`text-${header.align}`}

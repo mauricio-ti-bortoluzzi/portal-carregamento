@@ -4,8 +4,10 @@ export type SubtableRowProps = {
   cells: { value: any; colSize: number }[];
 };
 
+export type SubtableHeaderProps = { label: string; colSize: number };
+
 export type SubtableProps = {
-  headers: { label: string; colSize: number }[];
+  headers: SubtableHeaderProps[];
   rows: SubtableRowProps[];
 };
 

@@ -12,7 +12,7 @@ export default function ExpandableTable({
 }: ExpandableTableProps) {
   return (
     <Table>
-      <ExpandableTableHeader headers={data.headers} select={select} />
+      <ExpandableTableHeader headers={data.headers} />
       <ExpandableTableBody
         selection={selection}
         setSelection={setSelection}
