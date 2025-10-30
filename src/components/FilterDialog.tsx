@@ -11,7 +11,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { ReactNode } from "react";
-import z, { ZodObject } from "zod";
+import z from "zod";
 
 type FilterDialogProps<T extends z.ZodType> = {
   children: ReactNode;
