@@ -58,3 +58,21 @@ export function FilterDialog<T extends z.ZodType>({
     </Dialog>
   );
 }
+
+type FilterButtonProps<T> = {
+  schema: T;
+  fields: FormFieldsProps;
+  handleSubmit: (data: z.infer<T>) => void;
+};
+
+export function FilterButton<T extends z.ZodType>({
+  fields,
+  schema,
+  handleSubmit,
+}: FilterButtonProps<T>) {
+  return (
+    <FilterDialog fields={fields} handleSubmit={handleSubmit} schema={schema}>
+      <Button variant="secondary">Filtrar</Button>
+    </FilterDialog>
+  );
+}

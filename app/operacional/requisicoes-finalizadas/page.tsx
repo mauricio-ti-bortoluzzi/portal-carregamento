@@ -1,7 +1,7 @@
 "use client";
 
 import { DashboardLayout } from "@/components/Layout";
-import HeaderActions from "../components/HeaderActions";
+import BaseTableHeader from "@/components/BaseTableHeader";
 import ExpandableTable from "@/components/ExpandableTable";
 import data, { formatInvoicesToTable } from "./data";
 import { useState } from "react";
@@ -21,10 +21,12 @@ export default function RequisitionPage() {
 
   return (
     <DashboardLayout number={1} title="Requisições Finalizadas">
-      <HeaderActions
-        fields={getFilterFormFields()}
-        schema={filterSchema}
-        handleSubmit={handleFilterSubmit}
+      <BaseTableHeader
+        filter={{
+          fields: getFilterFormFields(),
+          schema: filterSchema,
+          handleSubmit: handleFilterSubmit,
+        }}
       />
       <ExpandableTable
         data={formatInvoicesToTable(data)}
