@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { ReactElement, ReactNode } from "react";
 import { RowProps, SubtableRowProps } from "../type";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
@@ -26,7 +26,7 @@ interface MainRowProps {
     isRowOpen: boolean;
     toggleRowOpen: (code: string) => void;
   };
-  options?: ReactNode;
+  options?: ReactElement;
 }
 
 export default function MainRow({
@@ -101,7 +101,12 @@ export default function MainRow({
       <Popover>
         <PopoverTrigger asChild>{popoverButton}</PopoverTrigger>
         <PopoverContent className="w-40">
-          <div className="flex flex-col gap-2">{options}</div>
+          <div className="flex flex-col gap-2">
+            {React.cloneElement(
+              options as React.ReactElement<{ dataId: string }>,
+              { dataId: rowId }
+            )}
+          </div>
         </PopoverContent>
       </Popover>
     );
