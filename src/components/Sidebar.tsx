@@ -22,6 +22,11 @@ const buttons = [
     title: "Requisições Finalizadas",
     link: "/operacional/requisicoes-finalizadas",
   },
+  {
+    icon: <DollarSign />,
+    title: "Gestão de Produção",
+    link: "/operacional/gestao-de-producao",
+  },
 ];
 
 export function CustomSidebar({ number }: { number: number }) {
