@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode } from "react";
+import React from "react";
 import { RowProps, SubtableRowProps } from "../type";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
@@ -26,7 +26,7 @@ interface MainRowProps {
     isRowOpen: boolean;
     toggleRowOpen: (code: string) => void;
   };
-  options?: ReactElement;
+  options?: React.ReactElement;
 }
 
 export default function MainRow({

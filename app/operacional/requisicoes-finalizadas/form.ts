@@ -1,5 +1,4 @@
 import { FormFieldsProps } from "@/components/Form";
-import { FilterProps, NewOpProps } from "./schema";
 import data from "./data";
 
 export function getFilterFormFields() {
@@ -33,9 +32,8 @@ export function getFilterFormFields() {
   return fields;
 }
 
-export function handleFilterSubmit(data: FilterProps) {
-  data;
-}
+// data: FilterProps
+export function handleFilterSubmit() {}
 
 export function getNewOpFormFields(dataId: string) {
   const item = data.find((request) => String(request.request) == dataId);
@@ -106,6 +104,5 @@ export function getNewOpFormFields(dataId: string) {
   return newOpFormFields;
 }
 
-export function handleNewOpFormSubmit(data: NewOpProps) {
-  data;
-}
+// data: NewOpProps
+export function handleNewOpFormSubmit() {}

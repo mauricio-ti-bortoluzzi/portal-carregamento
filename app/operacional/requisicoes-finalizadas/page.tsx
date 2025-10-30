@@ -3,11 +3,11 @@
 import { DashboardLayout } from "@/components/Layout";
 import HeaderActions from "../components/HeaderActions";
 import ExpandableTable from "@/components/ExpandableTable";
-import data, { formatInvoicesToTable, RequestType } from "./data";
+import data, { formatInvoicesToTable } from "./data";
 import { useState } from "react";
-import { SelectionState, TableProps } from "@/components/ExpandableTable/type";
-import { FilterProps, filterSchema, newOpSchema } from "./schema";
-import { CustomForm, FormFieldsProps } from "@/components/Form";
+import { SelectionState } from "@/components/ExpandableTable/type";
+import { filterSchema, newOpSchema } from "./schema";
+import { CustomForm } from "@/components/Form";
 import FormDialog from "@/components/FormDialog";
 import {
   getFilterFormFields,
