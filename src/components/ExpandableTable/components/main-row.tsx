@@ -5,6 +5,11 @@ import { Button } from "@/components/ui/button";
 import { ChevronDown, EllipsisVertical } from "lucide-react";
 import SelectCell from "./select-cell";
 import clsx from "clsx";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 interface MainRowProps {
   row: RowProps;
@@ -86,14 +91,19 @@ export default function MainRow({
   function renderOptions(index: number, row: RowProps) {
     if (!options || index !== row.cells.length - 1) return null;
 
-    return (
+    const popoverButton = (
       <Button variant="ghost" size="auto">
-        <EllipsisVertical
-          className={`h-5 w-5 transition-transform ${
-            open.isRowOpen && "rotate-180"
-          }`}
-        />
+        <EllipsisVertical className={`h-5 w-5`} />
       </Button>
+    );
+
+    return (
+      <Popover>
+        <PopoverTrigger asChild>{popoverButton}</PopoverTrigger>
+        <PopoverContent className="w-40">
+          <div className="flex flex-col gap-2">{options}</div>
+        </PopoverContent>
+      </Popover>
     );
   }
 }

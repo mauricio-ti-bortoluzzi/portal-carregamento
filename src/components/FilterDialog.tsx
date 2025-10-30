@@ -11,21 +11,21 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { ReactNode } from "react";
-import { ZodObject } from "zod";
+import z, { ZodObject } from "zod";
 
-type FilterDialogProps = {
+type FilterDialogProps<T extends z.ZodType> = {
   children: ReactNode;
   fields: FormFieldsProps;
-  schema: ZodObject;
-  handleSubmit: (data: Record<string, unknown>) => void;
+  schema: T;
+  handleSubmit: (data: z.infer<T>) => void;
 };
 
-export function FilterDialog({
+export function FilterDialog<T extends z.ZodType>({
   children,
   fields,
   schema,
   handleSubmit,
-}: FilterDialogProps) {
+}: FilterDialogProps<T>) {
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>

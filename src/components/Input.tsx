@@ -31,8 +31,13 @@ export function CustomInput({
     direction == "vertical" && "flex-col"
   );
 
+  const selectWithErrorContainerClassname = cn(
+    "flex flex-col gap-1",
+    direction === "horizontal" && "w-1/2"
+  );
+
   const inputClassname = cn(
-    direction == "horizontal" && "w-1/2",
+    "w-full",
     error && "border-red-500 focus-visible:border-red-400"
   );
 
@@ -44,13 +49,15 @@ export function CustomInput({
         <Label className="w-1/2" htmlFor={name}>
           {label}
         </Label>
-        <Input
-          className={inputClassname}
-          id={name}
-          {...register(name)}
-          {...props}
-        />
-        <span className={spanClassname}>{error}</span>
+        <div className={selectWithErrorContainerClassname}>
+          <Input
+            className={inputClassname}
+            id={name}
+            {...register(name)}
+            {...props}
+          />
+          <span className={spanClassname}>{error}</span>
+        </div>
       </div>
     </>
   );
@@ -79,8 +86,13 @@ export function CustomSelect({
     direction == "vertical" && "flex-col"
   );
 
+  const selectWithErrorContainerClassname = cn(
+    "flex flex-col gap-1",
+    direction === "horizontal" && "w-1/2"
+  );
+
   const selectClassname = cn(
-    direction == "horizontal" && "w-1/2",
+    "w-full",
     error && "border-red-500 focus-visible:border-red-400"
   );
 
@@ -92,31 +104,33 @@ export function CustomSelect({
         <Label className="w-1/2" htmlFor={name}>
           {label}
         </Label>
-        <Controller
-          control={control}
-          name={name}
-          render={({ field }) => (
-            <Select
-              onValueChange={field.onChange}
-              value={field.value ?? ""}
-              {...props}
-            >
-              <SelectTrigger className={selectClassname}>
-                <SelectValue placeholder="Selecione" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  {values.map((item) => (
-                    <SelectItem key={item.value} value={item.value}>
-                      {item.label}
-                    </SelectItem>
-                  ))}
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-          )}
-        />
-        <span className={spanClassname}>{error}</span>
+        <div className={selectWithErrorContainerClassname}>
+          <Controller
+            control={control}
+            name={name}
+            render={({ field }) => (
+              <Select
+                onValueChange={field.onChange}
+                value={field.value ?? ""}
+                {...props}
+              >
+                <SelectTrigger className={selectClassname}>
+                  <SelectValue placeholder="Selecione" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    {values.map((item) => (
+                      <SelectItem key={item.value} value={item.value}>
+                        {item.label}
+                      </SelectItem>
+                    ))}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            )}
+          />
+          <span className={spanClassname}>{error}</span>
+        </div>
       </div>
     </>
   );

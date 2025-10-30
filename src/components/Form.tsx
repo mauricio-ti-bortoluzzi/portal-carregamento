@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormHTMLAttributes } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { ZodObject } from "zod";
+import z, { ZodObject } from "zod";
 import {
   CustomInput,
   CustomInputProps,
@@ -17,19 +17,19 @@ type FormSelectFieldProps = CustomSelectProps & {
 };
 export type FormFieldsProps = (FormInputFieldProps | FormSelectFieldProps)[];
 
-type CustomFormProps = FormHTMLAttributes<HTMLFormElement> & {
-  schema: ZodObject;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  handleSubmit: (data: any) => void;
-  fields: FormFieldsProps;
-};
+type CustomFormProps<T extends z.ZodType<any, any, any>> =
+  FormHTMLAttributes<HTMLFormElement> & {
+    schema: T;
+    handleSubmit: (data: z.infer<T>) => void;
+    fields: FormFieldsProps;
+  };
 
-export function CustomForm({
+export function CustomForm<T extends z.ZodType<any, any, any>>({
   schema,
   handleSubmit,
   fields,
   ...props
-}: CustomFormProps) {
+}: CustomFormProps<T>) {
   const methods = useForm({
     reValidateMode: "onChange",
     resolver: zodResolver(schema),
@@ -45,6 +45,8 @@ export function CustomForm({
                 return <CustomInput key={field.name} {...field} />;
               case "select":
                 return <CustomSelect key={field.name} {...field} />;
+              default:
+                return null;
             }
           })}
         </div>

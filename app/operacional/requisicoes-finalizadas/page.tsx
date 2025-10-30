@@ -6,8 +6,19 @@ import ExpandableTable from "@/components/ExpandableTable";
 import data, { RequestType } from "./data";
 import { useState } from "react";
 import { SelectionState, TableProps } from "@/components/ExpandableTable/type";
-import { FilterProps } from "./schema";
+import { FilterProps, filterSchema, newOpSchema } from "./schema";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { CustomForm, FormFieldsProps } from "@/components/Form";
 
 export default function RequisitionPage() {
   const [selection, setSelection] = useState<SelectionState>({});
@@ -18,7 +29,11 @@ export default function RequisitionPage() {
 
   return (
     <DashboardLayout number={1} title="Gestão de Requisição">
-      <HeaderActions handleSubmit={handleSubmit} />
+      <HeaderActions
+        fields={getFormFields()}
+        schema={filterSchema}
+        handleSubmit={handleSubmit}
+      />
       <ExpandableTable
         data={formatInvoicesToTable(data)}
         select={true}
@@ -119,15 +134,117 @@ function formatInvoicesToTable(data: RequestType[]): TableProps {
   };
 }
 
+function getFormFields() {
+  const fields: FormFieldsProps = [
+    {
+      fieldtype: "input",
+      type: "number",
+      name: "OPNumber",
+      label: "Nº da OP",
+      placeholder: "10010",
+      direction: "horizontal",
+    },
+    {
+      fieldtype: "select",
+      label: "Unidade",
+      name: "unit",
+      direction: "horizontal",
+      values: [
+        {
+          value: "1",
+          label: "Silo Xxê.",
+        },
+        {
+          value: "2",
+          label: "Ab. Luz",
+        },
+      ],
+    },
+  ];
+
+  return fields;
+}
+
 function Options() {
   return (
     <>
-      <Button>
-        <span>Adicionar OP</span>
-      </Button>
-      <Button>
-        <span>Adicionar OP</span>
-      </Button>
+      <NewOpDialog />
     </>
   );
+}
+
+function NewOpDialog() {
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button variant="secondary">
+          <span>Adicionar OP</span>
+        </Button>
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle asChild>
+            <span>Adicionar OP</span>
+          </DialogTitle>
+          <DialogDescription asChild>
+            <span>Preencha os campos abaixo</span>
+          </DialogDescription>
+        </DialogHeader>
+        <CustomForm
+          id="new-op-form"
+          fields={getNewOpFormFields()}
+          handleSubmit={() => {}}
+          schema={newOpSchema}
+        />
+        <DialogFooter>
+          <DialogClose asChild>
+            <Button variant="ghost">Cancelar</Button>
+          </DialogClose>
+          <Button form="new-op-form" type="submit">
+            Adicionar
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+function getNewOpFormFields() {
+  const newOpFormFields: FormFieldsProps = [
+    {
+      fieldtype: "select",
+      label: "Unidade",
+      name: "unit",
+      direction: "horizontal",
+      values: [
+        {
+          value: "2",
+          label: "Silo Xxê.",
+        },
+        {
+          value: "3",
+          label: "Ab. Luz",
+        },
+      ],
+    },
+    {
+      fieldtype: "input",
+      type: "number",
+      name: "op",
+      label: "Nº da OP",
+      placeholder: "10010",
+      direction: "horizontal",
+    },
+    {
+      fieldtype: "input",
+      type: "number",
+      name: "volume",
+      label: "Volume",
+      step: "0.01",
+      placeholder: "10010",
+      direction: "horizontal",
+    },
+  ];
+
+  return newOpFormFields;
 }

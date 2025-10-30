@@ -6,7 +6,8 @@ import ExpandableTable from "@/components/ExpandableTable";
 import invoices, { DataType } from "./data";
 import { useState } from "react";
 import { SelectionState, TableProps } from "@/components/ExpandableTable/type";
-import { FilterProps } from "./schema";
+import { FilterProps, filterSchema } from "./schema";
+import { FormFieldsProps } from "@/components/Form";
 
 export default function RequisitionPage() {
   const [selection, setSelection] = useState<SelectionState>({});
@@ -17,7 +18,11 @@ export default function RequisitionPage() {
 
   return (
     <DashboardLayout number={0} title="Gestão de Requisição">
-      <HeaderActions handleSubmit={handleSubmit} />
+      <HeaderActions
+        fields={getFormFields()}
+        schema={filterSchema}
+        handleSubmit={handleSubmit}
+      />
       <ExpandableTable
         data={formatInvoicesToTable(invoices)}
         select={true}
@@ -111,4 +116,51 @@ function formatInvoicesToTable(invoices: DataType[]): TableProps {
       },
     })),
   };
+}
+
+function getFormFields() {
+  const fields: FormFieldsProps = [
+    {
+      fieldtype: "input",
+      type: "date",
+      name: "estimatedDeliveryDate",
+      label: "Previsão de entrega",
+      placeholder: "22-11-2025",
+      direction: "horizontal",
+    },
+    {
+      fieldtype: "select",
+      label: "Cultivar",
+      name: "product",
+      direction: "horizontal",
+      values: [
+        {
+          value: "001",
+          label: "Sem 610 IPRO",
+        },
+        {
+          value: "002",
+          label: "Sem O580",
+        },
+      ],
+    },
+    {
+      fieldtype: "select",
+      label: "Unidade",
+      name: "unit",
+      direction: "horizontal",
+      values: [
+        {
+          value: "1",
+          label: "Silo Xxê.",
+        },
+        {
+          value: "2",
+          label: "Ab. Luz",
+        },
+      ],
+    },
+  ];
+
+  return fields;
 }
