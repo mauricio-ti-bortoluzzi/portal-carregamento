@@ -10,14 +10,18 @@ export type SubtableProps = {
 };
 
 export type RowProps = {
-  cells: { value: string | number; colSize: number; align: "start" | "end" }[];
+  cells: {
+    value: string | number;
+    colSize: number;
+    align: "start" | "end" | "center";
+  }[];
   subtable?: SubtableProps;
 };
 
 export type HeaderProps = {
   label: string;
   colSize: number;
-  align: "start" | "end";
+  align: "start" | "end" | "center";
 };
 
 export type TableProps = {

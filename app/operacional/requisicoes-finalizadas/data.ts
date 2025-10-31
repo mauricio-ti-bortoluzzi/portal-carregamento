@@ -1,4 +1,8 @@
-import { TableProps } from "@/components/ExpandableTable/type";
+import {
+  HeaderProps,
+  SubtableHeaderProps,
+  TableProps,
+} from "@/components/ExpandableTable/type";
 
 const data: RequestType[] = [
   {
@@ -123,35 +127,35 @@ const data: RequestType[] = [
 ];
 
 export function formatInvoicesToTable(data: RequestType[]): TableProps {
-  const headers = [
+  const headers: HeaderProps[] = [
     {
       label: "Requisição",
       colSize: 1,
-      align: "start" as "start" | "end",
+      align: "start",
     },
     {
       label: "Código do Item",
       colSize: 1,
-      align: "start" as "start" | "end",
+      align: "start",
     },
     {
       label: "Item",
       colSize: 1,
-      align: "start" as "start" | "end",
+      align: "start",
     },
     {
       label: "Volume",
       colSize: 1,
-      align: "start" as "start" | "end",
+      align: "start",
     },
     {
       label: "Status",
       colSize: 1,
-      align: "end" as "start" | "end",
+      align: "center",
     },
   ];
 
-  const subheaders = [
+  const subheaders: SubtableHeaderProps[] = [
     {
       label: "OP",
       colSize: 1,

@@ -1,4 +1,8 @@
-import { TableProps } from "@/components/ExpandableTable/type";
+import {
+  HeaderProps,
+  SubtableHeaderProps,
+  TableProps,
+} from "@/components/ExpandableTable/type";
 
 const invoices = [
   {
@@ -340,25 +344,25 @@ export type DataType = {
 };
 
 export function formatInvoicesToTable(invoices: DataType[]): TableProps {
-  const headers = [
+  const headers: HeaderProps[] = [
     {
       label: "Código",
       colSize: 1,
-      align: "start" as "start" | "end",
+      align: "start",
     },
     {
       label: "Item",
       colSize: 1,
-      align: "start" as "start" | "end",
+      align: "start",
     },
     {
       label: "Saldo",
       colSize: 2,
-      align: "end" as "start" | "end",
+      align: "end",
     },
   ];
 
-  const subheaders = [
+  const subheaders: SubtableHeaderProps[] = [
     {
       label: "Nº pedido",
       colSize: 1,
@@ -384,17 +388,17 @@ export function formatInvoicesToTable(invoices: DataType[]): TableProps {
         {
           value: invoice.itemCode,
           colSize: headers[0].colSize,
-          align: headers[0].align as "start" | "end",
+          align: headers[0].align,
         },
         {
           value: invoice.item,
           colSize: headers[1].colSize,
-          align: headers[1].align as "start" | "end",
+          align: headers[1].align,
         },
         {
           value: invoice.balance.toFixed(2),
           colSize: headers[2].colSize,
-          align: headers[2].align as "start" | "end",
+          align: headers[2].align,
         },
       ],
       subtable: {

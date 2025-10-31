@@ -1,4 +1,9 @@
-import React, { Dispatch, ReactNode, SetStateAction } from "react";
+import React, {
+  Dispatch,
+  ReactElement,
+  ReactNode,
+  SetStateAction,
+} from "react";
 import { Table } from "@/components/ui/table";
 import ExpandableTableHeader from "./components/header";
 import ExpandableTableBody from "./components/body";
@@ -9,7 +14,7 @@ export type ExpandableTableProps = {
   select?: boolean;
   selection?: SelectionState;
   setSelection?: Dispatch<SetStateAction<SelectionState>>;
-  options?: ReactNode;
+  options?: ReactElement;
 };
 
 export default function ExpandableTable({

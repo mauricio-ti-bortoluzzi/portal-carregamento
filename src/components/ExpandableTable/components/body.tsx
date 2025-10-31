@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from "react";
+import React, { ReactElement, useState } from "react";
 import { RowProps, SelectionState } from "../type";
 import { TableBody } from "@/components/ui/table";
 import MainRow from "./main-row";
@@ -10,7 +10,7 @@ interface ExpandableTableBodyProps {
   select?: boolean;
   selection?: SelectionState;
   setSelection?: React.Dispatch<React.SetStateAction<SelectionState>>;
-  options?: ReactNode;
+  options?: ReactElement;
 }
 
 export default function ExpandableTableBody({

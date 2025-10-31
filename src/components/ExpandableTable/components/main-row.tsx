@@ -49,7 +49,7 @@ export default function MainRow({
       {row.cells.map((cell, index) => (
         <TableCell
           key={`${rowId}-${cell.value}-${index}`}
-          className="align"
+          className="pr-0"
           colSpan={cell.colSize}
         >
           <div
@@ -58,12 +58,21 @@ export default function MainRow({
               "items-center",
               "gap-2",
               cell.align == "start" && "justify-start",
-              cell.align == "end" && "justify-end"
+              cell.align == "end" && "justify-end",
+              cell.align == "center" && "justify-between"
             )}
           >
+            <div
+              className={clsx("invisible", cell.align == "start" && "hidden")}
+            >
+              {renderExpandButton(index, row)}
+              {renderOptions(index, row)}
+            </div>
             <span className="mr-2">{cell.value}</span>
-            {renderExpandButton(index, row)}
-            {renderOptions(index, row)}
+            <div>
+              {renderExpandButton(index, row)}
+              {renderOptions(index, row)}
+            </div>
           </div>
         </TableCell>
       ))}
