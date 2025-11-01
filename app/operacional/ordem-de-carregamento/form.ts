@@ -1,5 +1,4 @@
 import { FormFieldsProps } from "@/components/Form";
-import data from "./data";
 
 export function getFilterFormFields() {
   const fields: FormFieldsProps = [

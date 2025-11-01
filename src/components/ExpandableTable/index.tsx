@@ -1,9 +1,4 @@
-import React, {
-  Dispatch,
-  ReactElement,
-  ReactNode,
-  SetStateAction,
-} from "react";
+import React, { Dispatch, ReactElement, SetStateAction } from "react";
 import { Table } from "@/components/ui/table";
 import ExpandableTableHeader from "./components/header";
 import ExpandableTableBody from "./components/body";
