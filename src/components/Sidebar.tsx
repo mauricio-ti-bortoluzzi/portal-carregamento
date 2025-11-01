@@ -27,6 +27,11 @@ const buttons = [
     title: "Gestão de Produção",
     link: "/operacional/gestao-de-producao",
   },
+  {
+    icon: <DollarSign />,
+    title: "Ordem de Carregamento",
+    link: "/operacional/ordem-de-carregamento",
+  },
 ];
 
 export function CustomSidebar({ number }: { number: number }) {

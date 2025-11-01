@@ -43,7 +43,7 @@ export default function FormDialog({
     <Dialog>
       <DialogTrigger asChild>
         <Button variant={trigger.variant} size={trigger.size}>
-          <span>Adicionar OP</span>
+          <span>{trigger.label}</span>
         </Button>
       </DialogTrigger>
       <DialogContent>

@@ -1,0 +1,53 @@
+import { FormFieldsProps } from "@/components/Form";
+import data from "./data";
+
+export function getFilterFormFields() {
+  const fields: FormFieldsProps = [
+    {
+      fieldtype: "input",
+      type: "number",
+      name: "OPNumber",
+      label: "Nº da OP",
+      placeholder: "10010",
+      direction: "horizontal",
+    },
+    {
+      fieldtype: "select",
+      label: "Unidade",
+      name: "unit",
+      direction: "horizontal",
+      values: [
+        {
+          value: "1",
+          label: "Silo Xxê.",
+        },
+        {
+          value: "2",
+          label: "Ab. Luz",
+        },
+      ],
+    },
+  ];
+
+  return fields;
+}
+
+// data: FilterProps
+export function handleFilterSubmit() {}
+
+export function getNewOrderFormFields() {
+  const newOpFormFields: FormFieldsProps = [
+    {
+      fieldtype: "input",
+      type: "text",
+      name: "batch",
+      label: "Lote",
+      direction: "horizontal",
+    },
+  ];
+
+  return newOpFormFields;
+}
+
+// data: NewOrderProps
+export function handleNewOrderFormSubmit() {}
