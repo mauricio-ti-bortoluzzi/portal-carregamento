@@ -13,6 +13,26 @@ export function getFilterFormFields() {
     },
     {
       fieldtype: "select",
+      label: "Status",
+      name: "status",
+      direction: "horizontal",
+      values: [
+        {
+          value: "waiting",
+          label: "Aguardando",
+        },
+        {
+          value: "executing",
+          label: "Executando",
+        },
+        {
+          value: "finished",
+          label: "Finalizado",
+        },
+      ],
+    },
+    {
+      fieldtype: "select",
       label: "Cultivar",
       name: "product",
       direction: "horizontal",

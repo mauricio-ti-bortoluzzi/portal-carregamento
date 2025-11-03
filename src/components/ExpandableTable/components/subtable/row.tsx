@@ -11,6 +11,8 @@ interface SubtableRowComponentProps {
 }
 
 export function SubtableRow({ row, selection }: SubtableRowComponentProps) {
+  const key = useId();
+
   return (
     <TableRow
       className={`
@@ -26,10 +28,9 @@ export function SubtableRow({ row, selection }: SubtableRowComponentProps) {
           onChange={selection.toggleRowSelection}
         />
       </TableCell>
-      {row.cells.map((cell) => {
-        const key = useId();
+      {row.cells.map((cell, i) => {
         return (
-          <TableCell key={key} colSpan={cell.colSize}>
+          <TableCell key={`${key}-${i}`} colSpan={cell.colSize}>
             {cell.value}
           </TableCell>
         );

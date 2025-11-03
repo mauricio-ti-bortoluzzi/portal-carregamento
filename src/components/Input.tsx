@@ -98,6 +98,8 @@ export function CustomSelect({
 
   const spanClassname = cn(`text-red-500 text-sm`, !error && "hidden");
 
+  const key = useId();
+
   return (
     <>
       <div className={containerClassname}>
@@ -119,11 +121,9 @@ export function CustomSelect({
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
-                    {values.map((item) => {
-                      const key = useId();
-
+                    {values.map((item, i) => {
                       return (
-                        <SelectItem key={key} value={item.value}>
+                        <SelectItem key={`${key}-${i}`} value={item.value}>
                           {item.label}
                         </SelectItem>
                       );

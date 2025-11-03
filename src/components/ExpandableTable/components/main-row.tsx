@@ -37,6 +37,7 @@ export default function MainRow({
   options,
 }: MainRowProps) {
   const rowId = String(row.cells[0].value);
+  const key = useId();
 
   return (
     <TableRow
@@ -47,9 +48,12 @@ export default function MainRow({
     >
       <SelectCell selection={selection} row={row} />
       {row.cells.map((cell, index) => {
-        const key = useId();
         return (
-          <TableCell key={key} className="pr-0" colSpan={cell.colSize}>
+          <TableCell
+            key={`${key}-${index}`}
+            className="pr-0"
+            colSpan={cell.colSize}
+          >
             <div
               className={clsx(
                 "flex",

@@ -37,17 +37,18 @@ export function CustomForm<T extends z.ZodType<any, any, any>>({
     resolver: zodResolver(schema),
   });
 
+  const key = useId();
+
   return (
     <FormProvider {...methods}>
       <form {...props} onSubmit={methods.handleSubmit(handleSubmit)}>
         <div className="space-y-4">
-          {fields.map((field) => {
-            const key = useId();
+          {fields.map((field, i) => {
             switch (field.fieldtype) {
               case "input":
-                return <CustomInput key={key} {...field} />;
+                return <CustomInput key={`${key}-${i}`} {...field} />;
               case "select":
-                return <CustomSelect key={key} {...field} />;
+                return <CustomSelect key={`${key}-${i}`} {...field} />;
               default:
                 return null;
             }

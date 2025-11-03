@@ -36,6 +36,8 @@ const buttons = [
 ];
 
 export function CustomSidebar({ number }: { number: number }) {
+  const key = useId();
+
   return (
     <Sidebar className="p-4">
       <SidebarHeader className="items-center gap-4">
@@ -47,10 +49,8 @@ export function CustomSidebar({ number }: { number: number }) {
           <SidebarGroupContent>
             <SidebarMenu>
               {buttons.map((item, i) => {
-                const key = useId();
-
                 return (
-                  <SidebarMenuItem key={key}>
+                  <SidebarMenuItem key={`${key}-${i}`}>
                     <SidebarMenuButton isActive={i === number} asChild>
                       <a href={item.link}>
                         {item.icon}

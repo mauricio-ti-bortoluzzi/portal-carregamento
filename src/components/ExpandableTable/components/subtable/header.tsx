@@ -11,6 +11,7 @@ export default function SubtableHeader({
   headers,
   isChecked,
 }: SubtableHeaderProps) {
+  const key = useId();
   return (
     <TableRow
       className={`
@@ -21,10 +22,9 @@ export default function SubtableHeader({
       `}
     >
       <TableCell className="text-center">Selecionar</TableCell>
-      {headers.map((header) => {
-        const key = useId();
+      {headers.map((header, i) => {
         return (
-          <TableCell key={key} colSpan={header.colSize}>
+          <TableCell key={`${key}-${i}`} colSpan={header.colSize}>
             {header.label}
           </TableCell>
         );

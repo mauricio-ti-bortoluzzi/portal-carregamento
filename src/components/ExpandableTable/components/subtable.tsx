@@ -27,6 +27,8 @@ export default function ExpandableTableSubtable({
     subtableRows: SubtableRowProps[]
   ) => void;
 }) {
+  const key = useId();
+
   return (
     <>
       <TableRow
@@ -38,22 +40,19 @@ export default function ExpandableTableSubtable({
         `}
       >
         {select && <TableCell className="text-center">X</TableCell>}
-        {subtable.headers.map((header) => {
-          const mainKey = useId();
+        {subtable.headers.map((header, i) => {
           return (
-            <TableCell key={mainKey} colSpan={header.colSize}>
+            <TableCell key={`${key}-${i}`} colSpan={header.colSize}>
               {header.label}
             </TableCell>
           );
         })}
       </TableRow>
 
-      {subtable.rows.map((row) => {
-        const subKey = useId();
-
+      {subtable.rows.map((row, i) => {
         return (
           <TableRow
-            key={subKey}
+            key={`${key}-${i}-sub`}
             className={`
             bg-muted
             ${selection?.subRows[row.cells[0].value] && "!bg-blue-50"}  
@@ -78,10 +77,9 @@ export default function ExpandableTableSubtable({
                 />
               </TableCell>
             )}
-            {row.cells.map((cell) => {
-              const rowKey = useId();
+            {row.cells.map((cell, i) => {
               return (
-                <TableCell key={rowKey} colSpan={cell.colSize}>
+                <TableCell key={`${key}-${i}-row`} colSpan={cell.colSize}>
                   {cell.value}
                 </TableCell>
               );

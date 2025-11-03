@@ -26,16 +26,17 @@ export function Subtable({
   selection,
   toggleSubRow,
 }: SubtableProps) {
+  const key = useId();
+
   return (
     <>
       <SubtableHeader headers={data.headers} isChecked={selection?.checked} />
-      {data.rows.map((row) => {
+      {data.rows.map((row, i) => {
         const subRowId = row.cells[0].value;
-        const key = useId();
 
         return (
           <SubtableRow
-            key={key}
+            key={`${key}-${i}`}
             row={row}
             selection={{
               toggleRowSelection: () =>

@@ -9,24 +9,37 @@ import { SelectionState } from "@/components/ExpandableTable/type";
 import { filterSchema, newOrderSchema } from "./schema";
 import {
   getFilterFormFields,
-  getNewOrderFormFields,
+  getOptionsFormFields,
   handleFilterSubmit,
   handleNewOrderFormSubmit,
 } from "./form";
 import FormDialog from "@/components/FormDialog";
 import { CustomForm } from "@/components/Form";
+import { Button } from "@/components/ui/button";
+import { hasTrueValue } from "@/lib/utils";
 
 export default function RequisitionPage() {
   const [selection, setSelection] = useState<SelectionState>({});
 
   return (
-    <DashboardLayout number={3} title="Requisições Finalizadas">
-      <TableHeader />
+    <DashboardLayout number={3} title="Ordem de Carregamento">
+      <BaseTableHeader
+        filter={{
+          fields: getFilterFormFields(),
+          schema: filterSchema,
+          handleSubmit: handleFilterSubmit,
+        }}
+      >
+        <Button disabled={!hasTrueValue(selection)}>
+          <span>Lançar alterações</span>
+        </Button>
+      </BaseTableHeader>
       <ExpandableTable
         data={formatInvoicesToTable(data)}
         select={true}
         selection={selection}
         setSelection={setSelection}
+        options={<Options />}
       />
     </DashboardLayout>
   );
@@ -41,20 +54,23 @@ function TableHeader() {
         handleSubmit: handleFilterSubmit,
       }}
     >
-      <NewOrder />
+      <Button disabled>
+        <span>Lançar alterações</span>
+      </Button>
     </BaseTableHeader>
   );
 }
 
-function NewOrder() {
+function Options({ dataId }: { dataId?: string }) {
   return (
     <FormDialog
       id="new-order-forms"
       trigger={{
-        label: "Nova Ordem",
+        label: "Incluir Lote",
+        variant: "secondary",
       }}
       header={{
-        title: "Nova Ordem",
+        title: "Incluir Lote",
         description: "Preencha os campos abaixo.",
       }}
       footer={{
@@ -62,7 +78,7 @@ function NewOrder() {
       }}
     >
       <CustomForm
-        fields={getNewOrderFormFields()}
+        fields={getOptionsFormFields(dataId || "")}
         handleSubmit={handleNewOrderFormSubmit}
         schema={newOrderSchema}
       />

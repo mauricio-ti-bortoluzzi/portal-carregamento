@@ -3,7 +3,7 @@ import { FormFieldsProps } from "@/components/Form";
 import z from "zod";
 
 type TableHeaderProps<T> = {
-  children?: React.ReactElement;
+  children?: React.ReactNode;
   filter: {
     schema: T;
     fields: FormFieldsProps;

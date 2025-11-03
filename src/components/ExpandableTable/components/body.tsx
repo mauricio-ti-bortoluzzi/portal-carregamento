@@ -32,17 +32,17 @@ export default function ExpandableTableBody({
     );
   };
 
+  const key = useId();
+
   return (
     <TableBody>
-      {rows.map((row) => {
+      {rows.map((row, i) => {
         const rowId = String(row.cells[0].value);
         const isRowOpen = openRow === rowId;
         const rowSelection = selection?.[rowId];
 
-        const key = useId();
-
         return (
-          <React.Fragment key={key}>
+          <React.Fragment key={`${key}-${i}`}>
             <MainRow
               row={row}
               hasSubtable={Boolean(row.subtable)}
