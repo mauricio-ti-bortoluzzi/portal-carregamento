@@ -36,7 +36,7 @@ function TableHeader() {
       }}
     >
       <Button>
-        <span>Gerar Requisição</span>
+        <span>Liberar para carregamento</span>
       </Button>
     </BaseTableHeader>
   );

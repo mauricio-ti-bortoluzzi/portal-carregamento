@@ -1,4 +1,4 @@
-import { ComponentProps } from "react";
+import { ComponentProps, useId } from "react";
 import { Input } from "@/components/ui/input";
 import { Controller, useFormContext } from "react-hook-form";
 import { cn } from "@/lib/utils";
@@ -119,11 +119,15 @@ export function CustomSelect({
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
-                    {values.map((item) => (
-                      <SelectItem key={item.value} value={item.value}>
-                        {item.label}
-                      </SelectItem>
-                    ))}
+                    {values.map((item) => {
+                      const key = useId();
+
+                      return (
+                        <SelectItem key={key} value={item.value}>
+                          {item.label}
+                        </SelectItem>
+                      );
+                    })}
                   </SelectGroup>
                 </SelectContent>
               </Select>

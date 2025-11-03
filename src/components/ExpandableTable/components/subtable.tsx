@@ -1,5 +1,6 @@
 import { TableCell, TableRow } from "@/components/ui/table";
 import { SubtableRowProps, SubtableProps } from "../type";
+import { useId } from "react";
 
 type SelectionState = {
   [rowId: string]: {
@@ -37,47 +38,57 @@ export default function ExpandableTableSubtable({
         `}
       >
         {select && <TableCell className="text-center">X</TableCell>}
-        {subtable.headers.map((header) => (
-          <TableCell key={header.label} colSpan={header.colSize}>
-            {header.label}
-          </TableCell>
-        ))}
+        {subtable.headers.map((header) => {
+          const mainKey = useId();
+          return (
+            <TableCell key={mainKey} colSpan={header.colSize}>
+              {header.label}
+            </TableCell>
+          );
+        })}
       </TableRow>
 
-      {subtable.rows.map((row) => (
-        <TableRow
-          key={row.cells[0].value}
-          className={`
+      {subtable.rows.map((row) => {
+        const subKey = useId();
+
+        return (
+          <TableRow
+            key={subKey}
+            className={`
             bg-muted
             ${selection?.subRows[row.cells[0].value] && "!bg-blue-50"}  
           `}
-        >
-          {select && (
-            <TableCell className="text-center">
-              <input
-                type="checkbox"
-                className="w-4 h-4"
-                checked={selection?.subRows[row.cells[0].value] ?? false}
-                onChange={
-                  toggleSubRow
-                    ? () =>
-                        toggleSubRow(
-                          rowId,
-                          String(row.cells[0].value),
-                          subtable.rows
-                        )
-                    : () => {}
-                }
-              />
-            </TableCell>
-          )}
-          {row.cells.map((cell) => (
-            <TableCell key={cell.value} colSpan={cell.colSize}>
-              {cell.value}
-            </TableCell>
-          ))}
-        </TableRow>
-      ))}
+          >
+            {select && (
+              <TableCell className="text-center">
+                <input
+                  type="checkbox"
+                  className="w-4 h-4"
+                  checked={selection?.subRows[row.cells[0].value] ?? false}
+                  onChange={
+                    toggleSubRow
+                      ? () =>
+                          toggleSubRow(
+                            rowId,
+                            String(row.cells[0].value),
+                            subtable.rows
+                          )
+                      : () => {}
+                  }
+                />
+              </TableCell>
+            )}
+            {row.cells.map((cell) => {
+              const rowKey = useId();
+              return (
+                <TableCell key={rowKey} colSpan={cell.colSize}>
+                  {cell.value}
+                </TableCell>
+              );
+            })}
+          </TableRow>
+        );
+      })}
     </>
   );
 }

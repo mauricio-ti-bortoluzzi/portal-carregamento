@@ -1,6 +1,7 @@
 import SubtableHeader from "./header";
 import { SubtableRow } from "./row";
 import { SubtableProps as DataProps, SubtableRowProps } from "../../type";
+import { useId } from "react";
 
 export interface SubtableSelectionState {
   checked: boolean;
@@ -30,10 +31,11 @@ export function Subtable({
       <SubtableHeader headers={data.headers} isChecked={selection?.checked} />
       {data.rows.map((row) => {
         const subRowId = row.cells[0].value;
+        const key = useId();
 
         return (
           <SubtableRow
-            key={subRowId}
+            key={key}
             row={row}
             selection={{
               toggleRowSelection: () =>

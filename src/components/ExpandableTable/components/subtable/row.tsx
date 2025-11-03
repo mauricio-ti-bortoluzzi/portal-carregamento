@@ -1,5 +1,6 @@
 import { TableCell, TableRow } from "@/components/ui/table";
 import { SubtableRowProps } from "../../type";
+import { useId } from "react";
 
 interface SubtableRowComponentProps {
   row: SubtableRowProps;
@@ -25,11 +26,14 @@ export function SubtableRow({ row, selection }: SubtableRowComponentProps) {
           onChange={selection.toggleRowSelection}
         />
       </TableCell>
-      {row.cells.map((cell) => (
-        <TableCell key={cell.value} colSpan={cell.colSize}>
-          {cell.value}
-        </TableCell>
-      ))}
+      {row.cells.map((cell) => {
+        const key = useId();
+        return (
+          <TableCell key={key} colSpan={cell.colSize}>
+            {cell.value}
+          </TableCell>
+        );
+      })}
     </TableRow>
   );
 }

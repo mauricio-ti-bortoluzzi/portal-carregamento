@@ -10,6 +10,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { DollarSign } from "lucide-react";
+import { useId } from "react";
 
 const buttons = [
   {
@@ -45,16 +46,20 @@ export function CustomSidebar({ number }: { number: number }) {
           <SidebarGroupLabel>Controle de carregamento</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {buttons.map((item, i) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton isActive={i === number} asChild>
-                    <a href={item.link}>
-                      {item.icon}
-                      <span className="text-base">{item.title}</span>
-                    </a>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
+              {buttons.map((item, i) => {
+                const key = useId();
+
+                return (
+                  <SidebarMenuItem key={key}>
+                    <SidebarMenuButton isActive={i === number} asChild>
+                      <a href={item.link}>
+                        {item.icon}
+                        <span className="text-base">{item.title}</span>
+                      </a>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                );
+              })}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>

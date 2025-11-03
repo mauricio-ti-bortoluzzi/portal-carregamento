@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement, useId, useState } from "react";
 import { RowProps, SelectionState } from "../type";
 import { TableBody } from "@/components/ui/table";
 import MainRow from "./main-row";
@@ -39,8 +39,10 @@ export default function ExpandableTableBody({
         const isRowOpen = openRow === rowId;
         const rowSelection = selection?.[rowId];
 
+        const key = useId();
+
         return (
-          <React.Fragment key={rowId}>
+          <React.Fragment key={key}>
             <MainRow
               row={row}
               hasSubtable={Boolean(row.subtable)}

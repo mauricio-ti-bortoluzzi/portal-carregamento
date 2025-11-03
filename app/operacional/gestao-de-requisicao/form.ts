@@ -12,7 +12,7 @@ export function getFormFields() {
     },
     {
       fieldtype: "select",
-      label: "Item",
+      label: "Cultivar",
       name: "product",
       direction: "horizontal",
       values: [

@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FormHTMLAttributes } from "react";
+import { FormHTMLAttributes, useId } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import z from "zod";
 import {
@@ -42,11 +42,12 @@ export function CustomForm<T extends z.ZodType<any, any, any>>({
       <form {...props} onSubmit={methods.handleSubmit(handleSubmit)}>
         <div className="space-y-4">
           {fields.map((field) => {
+            const key = useId();
             switch (field.fieldtype) {
               case "input":
-                return <CustomInput key={field.name} {...field} />;
+                return <CustomInput key={key} {...field} />;
               case "select":
-                return <CustomSelect key={field.name} {...field} />;
+                return <CustomSelect key={key} {...field} />;
               default:
                 return null;
             }

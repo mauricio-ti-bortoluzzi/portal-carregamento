@@ -1,5 +1,6 @@
 import { TableCell, TableRow } from "@/components/ui/table";
 import { SubtableHeaderProps as DataProps } from "../../type";
+import { useId } from "react";
 
 interface SubtableHeaderProps {
   headers: DataProps[];
@@ -20,11 +21,14 @@ export default function SubtableHeader({
       `}
     >
       <TableCell className="text-center">Selecionar</TableCell>
-      {headers.map((header) => (
-        <TableCell key={header.label} colSpan={header.colSize}>
-          {header.label}
-        </TableCell>
-      ))}
+      {headers.map((header) => {
+        const key = useId();
+        return (
+          <TableCell key={key} colSpan={header.colSize}>
+            {header.label}
+          </TableCell>
+        );
+      })}
     </TableRow>
   );
 }

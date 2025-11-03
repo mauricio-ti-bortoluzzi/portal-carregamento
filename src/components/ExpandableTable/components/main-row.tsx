@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useId } from "react";
 import { RowProps, SubtableRowProps } from "../type";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
@@ -46,36 +46,35 @@ export default function MainRow({
       `}
     >
       <SelectCell selection={selection} row={row} />
-      {row.cells.map((cell, index) => (
-        <TableCell
-          key={`${rowId}-${cell.value}-${index}`}
-          className="pr-0"
-          colSpan={cell.colSize}
-        >
-          <div
-            className={clsx(
-              "flex",
-              "items-center",
-              "gap-2",
-              cell.align == "start" && "justify-start",
-              cell.align == "end" && "justify-end",
-              cell.align == "center" && "justify-between"
-            )}
-          >
+      {row.cells.map((cell, index) => {
+        const key = useId();
+        return (
+          <TableCell key={key} className="pr-0" colSpan={cell.colSize}>
             <div
-              className={clsx("invisible", cell.align == "start" && "hidden")}
+              className={clsx(
+                "flex",
+                "items-center",
+                "gap-2",
+                cell.align == "start" && "justify-start",
+                cell.align == "end" && "justify-end",
+                cell.align == "center" && "justify-between"
+              )}
             >
-              {renderExpandButton(index, row)}
-              {renderOptions(index, row)}
+              <div
+                className={clsx("invisible", cell.align == "start" && "hidden")}
+              >
+                {renderExpandButton(index, row)}
+                {renderOptions(index, row)}
+              </div>
+              <span className="mr-2">{cell.value}</span>
+              <div>
+                {renderExpandButton(index, row)}
+                {renderOptions(index, row)}
+              </div>
             </div>
-            <span className="mr-2">{cell.value}</span>
-            <div>
-              {renderExpandButton(index, row)}
-              {renderOptions(index, row)}
-            </div>
-          </div>
-        </TableCell>
-      ))}
+          </TableCell>
+        );
+      })}
     </TableRow>
   );
 

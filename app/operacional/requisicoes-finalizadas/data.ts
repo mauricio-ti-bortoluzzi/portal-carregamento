@@ -161,8 +161,12 @@ export function formatInvoicesToTable(data: RequestType[]): TableProps {
       colSize: 1,
     },
     {
+      label: "Empresa",
+      colSize: 1,
+    },
+    {
       label: "Volume",
-      colSize: 4,
+      colSize: 3,
     },
   ];
 
@@ -205,8 +209,12 @@ export function formatInvoicesToTable(data: RequestType[]): TableProps {
               colSize: subheaders[0].colSize,
             },
             {
-              value: operation.volume,
+              value: operation.companyName,
               colSize: subheaders[1].colSize,
+            },
+            {
+              value: operation.volume,
+              colSize: subheaders[2].colSize,
             },
           ],
         })),
