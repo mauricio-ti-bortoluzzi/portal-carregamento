@@ -5,7 +5,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function hasTrueValue(obj: any): boolean {
+export function hasTrueValue(obj: object): boolean {
   return Object.values(obj).some((item) => {
     if (item === true) return true;
 

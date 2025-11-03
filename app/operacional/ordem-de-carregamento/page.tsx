@@ -45,22 +45,6 @@ export default function RequisitionPage() {
   );
 }
 
-function TableHeader() {
-  return (
-    <BaseTableHeader
-      filter={{
-        fields: getFilterFormFields(),
-        schema: filterSchema,
-        handleSubmit: handleFilterSubmit,
-      }}
-    >
-      <Button disabled>
-        <span>Lançar alterações</span>
-      </Button>
-    </BaseTableHeader>
-  );
-}
-
 function Options({ dataId }: { dataId?: string }) {
   return (
     <FormDialog
