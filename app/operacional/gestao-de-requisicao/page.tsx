@@ -39,7 +39,7 @@ function TableHeader() {
       }}
     >
       <Button>
-        <span>Gerar Ordem</span>
+        <span>Gerar Requisição</span>
       </Button>
     </BaseTableHeader>
   );

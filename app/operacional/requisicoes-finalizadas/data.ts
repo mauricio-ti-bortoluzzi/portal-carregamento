@@ -144,7 +144,7 @@ export function formatInvoicesToTable(data: RequestType[]): TableProps {
       align: "start",
     },
     {
-      label: "Volume",
+      label: "Volume Disponível",
       colSize: 1,
       align: "start",
     },
