@@ -31,7 +31,7 @@ export default function RequisitionPage() {
         }}
       >
         <Button disabled={!hasTrueValue(selection)}>
-          <span>Lançar alterações</span>
+          <span>Gerar pré-nota</span>
         </Button>
       </BaseTableHeader>
       <ExpandableTable
